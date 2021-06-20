@@ -8,9 +8,9 @@ repository: http://github.com/MoserMichael/gitblame
 
 CONTENTS					*gitblame-contents*
 
-Introduction				|gitblame-introduction|
-Command 				    |gitblame-command|
-Changelog	    			|gitblame-changelog|
+Introduction					|gitblame-introduction|
+Command 		   			|gitblame-command|
+Changelog	    				|gitblame-changelog|
 
 ==============================================================================
 INTRODUCTION					*gitblame-introduction*
