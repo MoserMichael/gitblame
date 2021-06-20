@@ -136,7 +136,7 @@ function! s:RunGitBlame()
             call setline(1, s:output)
 
             let s:rename="file " . s:cmd
-
+	    execute s:rename
 
         else     
 
