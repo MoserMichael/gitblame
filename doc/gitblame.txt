@@ -1,0 +1,45 @@
+*gitblame.txt*  Plugin for working with git
+
+
+Author:  Michael Moser (https://github.com/MoserMichael)
+License: Same terms as Vim itself (see |license|)
+repository: http://github.com/MoserMichael/gitblame
+
+
+CONTENTS					*gitblame-contents*
+
+Introduction				|gitblame-introduction|
+Command 				    |gitblame-command|
+Changelog	    			|gitblame-changelog|
+
+==============================================================================
+INTRODUCTION					*gitblame-introduction*
+
+The *gitblame* ( *gitblame.vim* ) provides a minimal command set for working with git;
+it's focus is on having a more pleasant interface for git blame and git grep.
+
+
+------------------------------------------------------------------------------
+COMMAND     					*gitblame-command*
+
+
+Blame   -  runs git blame on the file path  of the current buffer  and puts the output into a named scratch buffer, 
+           the scratch buffer has the name of the git blame command.
+           The cursor position in that window is the same as in the source window.
+           While in the blame window, running the Blame command now opens another window with the commit that changed the current line.
+
+
+GitGrep - enter a search string that is searched in the current git repository. 
+          Assumes that the current working directory is part of a git repository
+
+Redir   - run any command and put the output in a scratch buffer.
+          example: Redir !git branch
+        
+
+
+==============================================================================
+CHANGELOG					*gitblame-changelog*
+
+0.0	2021-6-20
+	- Initial commit
+
