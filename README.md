@@ -9,7 +9,7 @@ This plugin is part of my [work environment](https://github.com/MoserMichael/mye
 
 # INSTALLATION 
 
-Run the following commands, Rto install this plugin.
+To install this plugin, run the following commands.
 
 <pre>
 mkdir -p ~/.vim/pack/vendor/start/gitblame
