@@ -9,7 +9,7 @@ see [help text](https://github.com/MoserMichael/gitblame/blob/master/doc/gitblam
 
 Run the following commands, Rto install this plugin.
 
-<code>
+<pre>
 mkdir -p ~/.vim/pack/vendor/start/gitblame
 git clone --depth 1 https://github.com/MoserMichael/gitblame ~/.vim/pack/vendor/start/gitblame
-</code>
+</pre>
