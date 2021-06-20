@@ -159,3 +159,37 @@ function! s:RunGitBlame()
     endif        
 endfunction
 
+command! -nargs=* GitLs call s:RunGitLs()
+
+function! s:RunGitLs()
+
+    let tmpfile = tempname()
+    let grepcmd = "git ls-files  |  tee " . tmpfile
+
+    " --- run grep command ---
+    let cmd_output = system(grepcmd)
+
+    if cmd_output == ""
+        echohl WarningMsg |
+        \ echomsg "Error: current directory must be a git repository" |
+        \ echohl None
+        return
+    endif
+
+    " --- put output of grep command into message window ---
+    let old_efm = &efm
+    set efm=%f
+
+   "open search results, but do not jump to the first message (unlike cfile)
+   "execute "silent! cfile " . tmpfile
+    execute "silent! cgetfile " . tmpfile
+
+    let &efm = old_efm
+
+    botright copen
+
+    call delete(tmpfile)
+
+endfunction
+
+

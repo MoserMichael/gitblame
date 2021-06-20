@@ -18,7 +18,6 @@ INTRODUCTION					*gitblame-introduction*
 The *gitblame* ( *gitblame.vim* ) provides a minimal command set for working with git;
 it's focus is on having a more pleasant interface for git blame and git grep.
 
-
 ------------------------------------------------------------------------------
 COMMAND     					*gitblame-command*
 
@@ -28,9 +27,10 @@ Blame   -  runs git blame on the file path  of the current buffer  and puts the 
            The cursor position in that window is the same as in the source window.
            While in the blame window, running the Blame command now opens another window with the commit that changed the current line.
 
-
 GitGrep - enter a search string that is searched in the current git repository. 
           Assumes that the current working directory is part of a git repository
+
+Gitls   - list all files under git from current directory downward; files are listed in the quickfix window, so that you can enter it to open a buffer with the file.
 
 Redir   - run any command and put the output in a scratch buffer.
           example: Redir !git branch
