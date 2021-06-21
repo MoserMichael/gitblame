@@ -97,11 +97,22 @@ function! s:RunGitGrep()
 
     let &efm = old_efm
 
-    botright copen
+    "botright copen
+    OpenQuickFix
 
     call delete(tmpfile)
 
 endfunction
+
+function!  s:OpenQuickFix()
+	let size = &lines
+	let size = size / 3
+	execute 'copen \| resize ' . size . '"'
+endfunction
+
+if !exists(":OpenQuickFix")
+command! -nargs=* OpenQuickFix call s:OpenQuickFix()
+endif
 
 
 if !exists(":Blame")
@@ -186,7 +197,10 @@ function! s:RunGitLs()
 
     let &efm = old_efm
 
-    botright copen
+    let h = winheight(0)
+
+    "botright copen \| vertical resize 
+    OpenQuickFix
 
     call delete(tmpfile)
 

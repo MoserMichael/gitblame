@@ -14,6 +14,13 @@ This plugin is part of my [work environment](https://github.com/MoserMichael/mye
 To install this plugin, run the following commands.
 
 <pre>
-mkdir -p ~/.vim/pack/vendor/start/gitblame
+mkdir -p ~/.vim/pack/vendor/start/gitblame; git clone --depth 1 https://github.com/MoserMichael/gitblame ~/.vim/pack/vendor/start/gitblame
+</pre>
+
+or 
+
+<pre>
+mkdir -p ~/.vim/pack/vendor/start/gitblame 
 git clone --depth 1 https://github.com/MoserMichael/gitblame ~/.vim/pack/vendor/start/gitblame
 </pre>
+
