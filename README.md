@@ -9,7 +9,10 @@ see [help text](https://github.com/MoserMichael/gitblame/blob/master/doc/gitblam
 
 This plugin is part of my [work environment](https://github.com/MoserMichael/myenv), this project publishes it separately as a neat plugin.
 
+
+Click on the picture to view the presentation for this plugin.
 [![click to view presentation](https://img.youtube.com/vi/bx7T2J0u2nI/0.jpg)](https://www.youtube.com/watch?v=bx7T2J0u2nI)
+
 
 # INSTALLATION 
 
