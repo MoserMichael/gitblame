@@ -32,6 +32,10 @@ GitGrep - enter a search string that is searched in the current git repository.
 
 Gitls   - list all files under git from current directory downward; files are listed in the quickfix window, so that you can enter it to open a buffer with the file.
 
+Graph   - runs git log --graph  to produce a text graph of the commits, and puts the output into a named scratch buffer, 
+          the scratch buffer has the name of the command.
+          While in the same window, running the Graph command now opens another window with the commit described by the current line in the graph. 
+
 Redir   - run any command and put the output in a scratch buffer.
           example: Redir !git branch
         
