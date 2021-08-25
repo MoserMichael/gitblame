@@ -24,17 +24,20 @@ COMMAND     					*gitblame-command*
 
 Blame   -  runs git blame on the file path  of the current buffer  and puts the output into a named scratch buffer, 
            the scratch buffer has the name of the git blame command.
-           The cursor position in that window is the same as in the source window.
-           While in the blame window, running the Blame command now opens another window with the commit that changed the current line.
+           The cursor position in that buffer is the same as in the source buffer.
+           While in the blame buffer, press Enter or run Blame to open another buffer with the commit that changed the current line.
 
 GitGrep - enter a search string that is searched in the current git repository. 
           Assumes that the current working directory is part of a git repository
 
-Gitls   - list all files under git from current directory downward; files are listed in the quickfix window, so that you can enter it to open a buffer with the file.
+Gitls   - list all files under git from current directory downward; files are listed in the quickfix buffer, so that you can enter it to open a buffer with the file.
 
 Graph   - runs git log --graph  to produce a text graph of the commits, and puts the output into a named scratch buffer, 
           the scratch buffer has the name of the command.
-          While in the same window, running the Graph command now opens another window with the commit described by the current line in the graph. 
+          While in the same buffer, press Enter or run Graph to open another buffer with the commit described by the current line in the graph. 
+
+GitDiff - run git diff --name-only to get the list of the files that differed from the top of the branch and open the list in another buffer.
+          while in the same buffer, press Enter to open another buffer in vimdiff mode that shows the difference.
 
 Redir   - run any command and put the output in a scratch buffer.
           example: Redir !git branch
@@ -46,4 +49,6 @@ CHANGELOG					*gitblame-changelog*
 
 0.0	2021-6-20
 	- Initial commit
+0.1 2021-8-28
+    - add GitDiff, also now you can press enter to open the next buffer.
 

@@ -1,6 +1,6 @@
 # INTRODUCTION
 
-This project is a minimal vim plugin for working with git; with a focus on git blame, git grep, git log --graph, git ls-files commands.
+This project is a minimal vim plugin for working with git; with a focus on git blame, git grep, git log --graph, git ls-files, git diff commands.
 It's not too overengineered, so there is a chance that it will work for your installation too.
 
 for more information see the doc directory. 
