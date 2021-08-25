@@ -29,3 +29,4 @@ mkdir -p ~/.vim/pack/vendor/start/gitblame
 git clone --depth 1 https://github.com/MoserMichael/gitblame ~/.vim/pack/vendor/start/gitblame
 </pre>
 
+Also see this script on [vim.org](https://www.vim.org/scripts/script.php?script_id=5975)
