@@ -39,6 +39,8 @@ Graph   - runs git log --graph  to produce a text graph of the commits, and puts
 GitDiff - run git diff --name-only to get the list of the files that differed from the top of the branch and open the list in another buffer.
           while in the same buffer, press Enter to open another buffer in vimdiff mode that shows the difference.
 
+GitDiff <hash1> <hash2>  - run diff between two hashes, similar to previous invocation.
+
 Redir   - run any command and put the output in a scratch buffer.
           example: Redir !git branch
         

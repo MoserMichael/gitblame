@@ -184,6 +184,7 @@ function! s:RunGitBlame()
     endif        
 endfunction
 
+
 if !exists(":GitLs")
 command! -nargs=* GitLs call s:RunGitLs()
 endif
@@ -228,10 +229,18 @@ endif
 
 function! GitGraphGlobalShowCommit()
         let s:curline = getline('.')
-        let s:starthash = stridx(s:curline,'\')+1
-        let s:eofhash = stridx(s:curline, ' ', s:starthash) - s:starthash
 
-        let s:hash = strpart(s:curline,s:starthash, s:eofhash)
+        let s:tokens = split(s:curline, " ")
+        let s:token = ""
+        let s:hash = ""
+
+        for s:token in s:tokens
+            if s:token != '|' && s:token != '*' && s:token != '\' && s:token !=  '/'
+                let s:hash = s:token
+                break
+            endif
+        endfor
+        
 
         let s:firsthashchar=strpart(s:hash,0,1)
         if s:firsthashchar == "^"
@@ -261,8 +270,8 @@ function! s:RunGitGraph()
         call GitGraphGlobalShowCommit()
         
     else        
-       let s:cmd="Redir !git log --graph --full-history --all --pretty=format:'\\%h \\%an \\%s'"
-       execute s:cmd 
+       let s:cmd='Redir !git log --graph --full-history --all --pretty=format:' . "'" . '%h \%an: (%ci) \%s' .  "'"
+       silent! execute s:cmd 
 
        noremap <buffer> <silent> <CR>        :call GitGraphGlobalShowCommit()<CR>
 
@@ -270,6 +279,7 @@ function! s:RunGitGraph()
     endif
 
 endfunction
+
 
 "======================================================
 " run git diff
@@ -284,32 +294,58 @@ function! GitDiffGlobalShowDiff()
     let s:line = getline(".")
     let s:tmpfile = tempname()
 
-
-    let s:cmd="git show :" . s:line  . " >" . s:tmpfile
-
-    call system(s:cmd)
-
     "aboveleft new 
     tabnew
 
-    file "git diff " . s:line
+    file "git show :" . s:line
 
-    execute "silent edit " . s:line
+    if s:GitDiffGlobalShowDiff_from_commit == ""
+        execute "silent edit " . s:line
+    else
+        let s:show_cmd = "git show  " . s:GitDiffGlobalShowDiff_from_commit . ":" . s:line 
+        let s:cmd =  s:show_cmd . " >" . s:tmpfile
+        let s:rename ="silent file " . s:show_cmd
+        call system(s:cmd)
+        execute "silent edit " . s:tmpfile
+        call delete(s:tmpfile)
+
+        execute s:rename
+        
+        setlocal nomodifiable
+    endif
+
+
+    let s:show_cmd = "git show  " . s:GitDiffGlobalShowDiff_to_commit . ":" . s:line
+    let s:cmd= s:show_cmd . " >" . s:tmpfile
+    let s:rename="silent file " . s:show_cmd
+    call system(s:cmd)
     execute "silent vertical diffs " . s:tmpfile
-
-    let s:rename="silent file git diff " . s:line
+    call delete(s:tmpfile)
+    
     execute s:rename
-
+    
     setlocal nomodifiable
 
-    call delete(s:tmpfile)
 endfunction
 
 
 
-function! s:RunGitDiff()
+function! s:RunGitDiff(...)
  
-    let s:cmd="git diff --name-only"
+    setlocal modifiable
+    let s:GitDiffGlobalShowDiff_from_commit = ""
+    let s:GitDiffGlobalShowDiff_to_commit = ""
+    let s:to_commit = ""
+    if len(a:000) == 2
+        let s:GitDiffGlobalShowDiff_from_commit = a:1
+        let s:GitDiffGlobalShowDiff_to_commit = a:2
+    else
+      if len(a:000) == 1
+        let s:GitDiffGlobalShowDiff_to_commit = a:1
+      endif
+    endif
+
+    let s:cmd="git diff --name-only  " . s:GitDiffGlobalShowDiff_from_commit . " " . s:GitDiffGlobalShowDiff_to_commit
 
     " --- run grep command ---
     let s:output = systemlist(s:cmd)
@@ -321,6 +357,7 @@ function! s:RunGitDiff()
 
     noremap <buffer> <silent> <CR>        :call GitDiffGlobalShowDiff()<CR>
     setlocal nomodifiable
+
 
 endfunction
 
