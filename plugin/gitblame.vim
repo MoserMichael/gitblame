@@ -291,7 +291,7 @@ endfunction
 "======================================================
 
 if !exists(":GitDiff")
-command! -nargs=* GitDiff call s:RunGitDiff()
+command! -nargs=* GitDiff call s:RunGitDiff(<f-args>)
 endif
 
 " has to be global function. strange.
