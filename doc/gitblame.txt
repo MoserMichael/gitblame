@@ -53,4 +53,5 @@ CHANGELOG					*gitblame-changelog*
 	- Initial commit
 0.1 2021-8-28
     - add GitDiff, also now you can press enter to open the next buffer.
-
+0.2 2021-9-5
+    - fix GitDiff, didn't work in the previous release.
