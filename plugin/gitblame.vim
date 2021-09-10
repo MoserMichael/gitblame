@@ -384,7 +384,7 @@ function! s:RunGitDiff(...)
 endfunction
 
 
-if !exists(":GitLog)
+if !exists(":GitLog")
 command! -nargs=* GitLog call s:RunGitLog()
 endif
 
