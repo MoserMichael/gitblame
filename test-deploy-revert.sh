@@ -17,7 +17,11 @@ if [[ ! -f $HOME/.vimrc-bak ]]; then
 fi
 
 rm -f $HOME/.vimrc
-rm -rf $HOME/.vim
+rm -rf $HOME/.vim 
+
+if [[ ! -d  $HOME/.vim/pack/vendor/start/gitblame ]]; then
+    rm -f $HOME/.vim/pack/vendor/start/gitblame
+fi
 
 mv $HOME/.vim-bak $HOME/.vim
 mv $HOME/.vimrc-bak $HOME/.vimrc
