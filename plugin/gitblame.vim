@@ -418,22 +418,83 @@ function! GitLogGlobalShowLog()
 endfunction
 
 
-function! s:RunGitLog()
+function! s:RunGitCommand(command, actionFunction, title)
         let s:tmpfile = tempname()
 
-        let s:log_cmd = "git log --name-status --find-renames"
-        let s:cmd =  s:log_cmd . " >" . s:tmpfile
+        let s:cmd =  a:command . " >" . s:tmpfile
         call system(s:cmd)
         execute "silent edit " . s:tmpfile
         call delete(s:tmpfile)
 
-        let s:rename ="silent file git log"
+        let s:rename ="silent file " . a:title
         execute s:rename
        
-        noremap <buffer> <silent> <CR>        :call GitLogGlobalShowLog()<CR>
+        let s:cmd = "noremap <buffer> <silent> <CR>        :call " . a:actionFunction . "()<CR>"
+        exec s:cmd
         setlocal nomodifiable
- 
+endfunction   
+
+function! s:RunGitLog()
+        call s:RunGitCommand("git log --name-status --find-renames", "GitLogGlobalShowLog", "git\\ log")
 endfunction
+
+
+function! GitBranchGlobalChooseBranch()
+
+        let s:title=bufname()  "expand('%:p')
+
+        let s:tokens = split(s:title, " ")
+    
+        let s:curline = getline('.')
+        let s:curline = s:Chomp( s:curline )
+
+        if s:tokens[0] == "remote"
+            let s:toks = split(s:curline, "/")
+            let s:localbr = s:toks[-1]
+            call system( "git rev-parse " . s:localbr)
+
+            if  v:shell_error != 0
+                let s:cmd = "git checkout " . s:curline . " -b " . s:localbr . " 2>&1"
+            else 
+                let s:cmd = "git checkout " . s:localbr . " 2>&1"
+            endif
+
+            let s:out = system(s:cmd)
+
+        else 
+            let s:cmd = "git checkout " . s:curline . " 2>&1"
+            "echo  "cmd: " . s:cmd
+            let s:out = system(s:cmd)
+
+        endif
+
+        if v:shell_error != 0 
+            let s:lines = split(s:out, '\n')
+            echo "Error: " . s:lines[0]
+        else
+            echo " "
+            " force update of status line
+            execute "let &stl=&stl"
+        endif
+
+endfunction
+
+if !exists("BranchRemote")
+command! -nargs=* BranchRemote call s:RunBranchRemote()
+endif
+
+function! s:RunBranchRemote() 
+        call s:RunGitCommand("git branch --remote", "GitBranchGlobalChooseBranch", "remote\\ branches")
+endfunction
+
+if !exists("BranchLocal")
+command! -nargs=* BranchLocal call s:RunBranchLocal()
+endif
+
+function! s:RunBranchLocal()
+        call s:RunGitCommand("git branch | cut -c 2-", "GitBranchGlobalChooseBranch", "local\\ branches")
+endfunction
+
 
 
 "======================================================
@@ -445,7 +506,7 @@ command! -nargs=* ShowGitBranchInStatusLine call s:ShowGitBranchInStatusLine()
 endif
 
 function! GitBlameStatusLineGitBranch() 
-    let s:branch_name = trim(system("git branch 2>/dev/null | tail -c +2")) 
+    let s:branch_name = trim(system("git branch 2>/dev/null | grep '*' | tail -c +2")) 
     if s:branch_name == ""
         return ""
     endif

@@ -39,6 +39,10 @@ Graph   - runs git log --graph  to produce a text graph of the commits, and puts
 GitLog  - runs git log --name-status --find-renames to produce a log of commits, and puts the output into a named scratch buffer, 
           While in the same buffer, press Enter or run Graph to open another buffer with the commit nearest to the cursor position.
 
+BranchLocal - list all local branch names in a buffer, if you press enter on a line in that buffer then it switches the local branch to that in the line.
+
+BranchRemote - list all remote branch names in a buffer, if you press enter on a line in that buffer, then it checks out that branch and switches to it.
+
 GitDiff - run git diff --name-only to get the list of the files that differed from the top of the branch and open the list in another buffer.
           while in the same buffer, press Enter to open another buffer in vimdiff mode that shows the difference.
 
@@ -62,3 +66,5 @@ CHANGELOG					*gitblame-changelog*
     - add GitLog
 0.4 2021-23-10
      - add ShowGitBranchInStatusLine
+0.5 2021-23-10
+     - add BranchLocal and BranchRemote, fix status line.
