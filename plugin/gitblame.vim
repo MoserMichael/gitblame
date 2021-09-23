@@ -436,3 +436,31 @@ function! s:RunGitLog()
 endfunction
 
 
+"======================================================
+" command to show git branch in status line
+"======================================================
+
+if !exists(":ShowGitBranchInStatusLine")
+command! -nargs=* ShowGitBranchInStatusLine call s:ShowGitBranchInStatusLine()
+endif
+
+function! GitBlameStatusLineGitBranch() 
+    let s:branch_name = trim(system("git branch 2>/dev/null | tail -c +2")) 
+    if s:branch_name == ""
+        return ""
+    endif
+    return '[' . s:branch_name . ']'
+endfunction    
+ 
+
+function! s:ShowGitBranchInStatusLine()
+
+    set statusline=%f\ %h%w%m%r\ %=%(%l,%c%V\ %=\ %P%)\ %{GitBlameStatusLineGitBranch()}
+
+    "always show status line
+    set laststatus=2 
+
+    "show cursor pos in status line
+    set ruler
+
+endfunction    

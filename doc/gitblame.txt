@@ -47,7 +47,7 @@ GitDiff <hash1> <hash2>  - run diff between two hashes, similar to previous invo
 Redir   - run any command and put the output in a scratch buffer.
           example to list all remote branches: Redir !git branch -r
         
-
+ShowGitBranchInStatusLine - show a status line that includes the current git branch
 
 ==============================================================================
 CHANGELOG					*gitblame-changelog*
@@ -60,3 +60,5 @@ CHANGELOG					*gitblame-changelog*
     - fix GitDiff, didn't work in the previous release.
 0.3 2021-9-10
     - add GitLog
+0.4 2021-23-10
+     - add ShowGitBranchInStatusLine
