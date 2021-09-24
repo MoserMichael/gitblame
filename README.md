@@ -5,7 +5,7 @@ It's not too overengineered, so there is a chance that it will work for your ins
 
 For more information, see [help text](https://github.com/MoserMichael/gitblame/blob/master/doc/gitblame.txt)
 
-This plugin is currently not supporting merges/rebases, as I am used to doing these from the command line.
+This plugin is currently not supporting merges/rebases, as I am used to doing these from the command line. You have got a different plugin, [vim fugitive](https://github.com/tpope/vim-fugitive), if you need to do merge/rebase from vim.
 
 This plugin is part of my [work environment](https://github.com/MoserMichael/myenv), this project publishes it separately as a neat plugin.
 
