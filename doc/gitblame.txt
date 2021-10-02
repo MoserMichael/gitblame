@@ -67,7 +67,10 @@ CHANGELOG					*gitblame-changelog*
     - fix GitDiff, didn't work in the previous release.
 0.3 2021-9-10
     - add GitLog
-0.4 2021-23-10
+0.4 2021-9-23
      - add ShowGitBranchInStatusLine
-0.5 2021-23-10
+0.5 2021-9-23
      - add BranchLocal and BranchRemote, fix status line.
+0.6 2021-10-2
+     - add GitStatus command.        
+
