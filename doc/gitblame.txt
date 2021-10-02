@@ -48,7 +48,7 @@ GitDiff - run git diff --name-only to get the list of the files that differed fr
 
 GitDiff <hash1> <hash2>  - run diff between two hashes, similar to previous invocation.
 
-GitStatus   - show the result of running git status in a buffer. Press Enter on a line of that window to open the file or directory mentioned.
+GitStatus   - show the result of running git status in a buffer. Press Enter on a line of that window to open the file or directory mentioned, for tracked files a git diff is opened as vimdiff, the file is opened as is for untracked files.
 
 Redir   - run any command and put the output in a scratch buffer.
           For example to list all remote branches: Redir !git branch -r
@@ -73,4 +73,6 @@ CHANGELOG					*gitblame-changelog*
      - add BranchLocal and BranchRemote, fix status line.
 0.6 2021-10-2
      - add GitStatus command.        
+0.7 2021-10-2
+     - fix GitStatus command.        
 

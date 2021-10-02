@@ -14,7 +14,8 @@ Click on the picture to view the presentation for this plugin (this presentation
 [![click to view presentation](https://img.youtube.com/vi/bx7T2J0u2nI/0.jpg)](https://www.youtube.com/watch?v=bx7T2J0u2nI)
 
 
-# INSTALLATION 
+
+# INSTALLATION s
 
 To install this plugin, run the following commands.
 
