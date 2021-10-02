@@ -525,3 +525,29 @@ function! s:ShowGitBranchInStatusLine()
     set ruler
 
 endfunction    
+
+command! -nargs=* GitStatus call s:RunGitStatus()
+
+function! GitStatusGlobalShowStatus()
+
+   let s:topline = getline('.')
+   let s:tokens = split(s:topline, " ")
+
+   if len(s:tokens) != 0
+     let s:fname = trim(s:Chomp(s:tokens[-1]))
+     echo(s:fname)
+     if filereadable(s:fname) || isdirectory(s:fname)
+         let s:cmd = "silent! belowright new " . s:fname
+         exec s:cmd
+     endif
+   endif
+endfunction
+
+function! s:RunGitStatus()
+   call s:RunGitCommand("git status", "GitStatusGlobalShowStatus", "git\\ status")
+
+
+endfunction
+
+
+

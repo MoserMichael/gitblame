@@ -21,6 +21,7 @@ mv $HOME/.vim $HOME/.vim-bak
 mv $HOME/.vimrc $HOME/.vimrc-bak
 
 
+rm -rf .vim/pack/vendor/start/gitblame 
 mkdir -p ~/.vim/pack/vendor/start/gitblame; git clone --depth 1 https://github.com/MoserMichael/gitblame ~/.vim/pack/vendor/start/gitblame
 
 

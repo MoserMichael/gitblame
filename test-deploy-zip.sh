@@ -24,6 +24,7 @@ mv $HOME/.vim $HOME/.vim-bak
 mv $HOME/.vimrc $HOME/.vimrc-bak
 
 
+rm -rf .vim/pack/vendor/start/gitblame 
 mkdir -p ~/.vim/pack/vendor/start/gitblame; unzip gitblame.zip -d  ~/.vim/pack/vendor/start/gitblame
 
 

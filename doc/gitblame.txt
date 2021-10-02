@@ -48,6 +48,8 @@ GitDiff - run git diff --name-only to get the list of the files that differed fr
 
 GitDiff <hash1> <hash2>  - run diff between two hashes, similar to previous invocation.
 
+GitStatus   - show the result of running git status in a buffer. Press Enter on a line of that window to open the file or directory mentioned.
+
 Redir   - run any command and put the output in a scratch buffer.
           For example to list all remote branches: Redir !git branch -r
           to list the status: Redir !git status
