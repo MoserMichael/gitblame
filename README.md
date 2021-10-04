@@ -1,5 +1,4 @@
-# INTRODUCTION
-
+# The gitblame vim plugin
 
 This project is a minimal vim plugin for working with git; it first did ```git blame```, later added support for ```git grep```, ```git log --graph```, ```git ls-files```, ```git diff```, ```git log --name-status --find-renames```, ```git status``` commands, it also allows you to change the current branch and shows the current branch in the status line (optionally).
 It's not too overengineered, so there is a chance that it will work for your installation too.
@@ -14,8 +13,7 @@ Click on the picture to view the presentation for this plugin (this presentation
 [![click to view presentation](https://img.youtube.com/vi/bx7T2J0u2nI/0.jpg)](https://www.youtube.com/watch?v=bx7T2J0u2nI)
 
 
-
-# INSTALLATION s
+# How to install
 
 To install this plugin, run the following commands.
 

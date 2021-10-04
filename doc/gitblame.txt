@@ -54,7 +54,7 @@ Redir   - run any command and put the output in a scratch buffer.
           For example to list all remote branches: Redir !git branch -r
           to list the status: Redir !git status
         
-ShowGitBranchInStatusLine - show a status line that includes the current git branch
+ShowGitBranchInStatusLine - show a status line that includes the current git branch in the current directory.
 
 ==============================================================================
 CHANGELOG					*gitblame-changelog*
