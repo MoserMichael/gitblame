@@ -10,7 +10,16 @@
 " Maintainer:   Michael Moser <https://github.com/mosermichael>
 " License:      This file is placed in the public domain.
 "
-"
+
+function! s:GitCheckGitDir()
+   let s:top_dir = s:Chomp( system("git rev-parse --show-toplevel") )
+   if v:shell_error != 0
+       echo "current directory not in a git repository"
+       return ""
+   endif
+   return s:top_dir
+endfunction
+
 if exists("g:loaded_gitblameutil")
   finish
 endif
@@ -302,12 +311,11 @@ function! GitDiffGlobalShowDiff()
     "aboveleft new 
     tabnew
 
-    let s:git_top_dir = s:Chomp( system("git rev-parse --show-toplevel") )
+    let s:git_top_dir = s:GitCheckGitDir()
     if s:git_top_dir == ""
-       echo "current directory not in a git repository"
        return
     endif
-
+ 
     call chdir(s:git_top_dir)
 
     file "git show :" . s:line
@@ -543,7 +551,7 @@ command! -nargs=* GitStatus call s:RunGitStatus()
 
 function! GitStatusGlobalShowStatus()
     
-   let s:git_top_dir = s:Chomp( system("git rev-parse --show-toplevel") )
+   let s:git_top_dir = s:GitCheckGitDir()
    if s:git_top_dir == ""
        echo "current directory not in a git repository"
        return
@@ -599,7 +607,7 @@ endfunction
 
 function! s:RunGitStatusImp(replace)
 
-   let s:git_top_dir = s:Chomp( system("git rev-parse --show-toplevel") )
+   let s:git_top_dir = s:GitCheckGitDir()
    if s:git_top_dir == ""
        echo "current directory not in a git repository"
        return
