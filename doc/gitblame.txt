@@ -16,7 +16,7 @@ Changelog	    				|gitblame-changelog|
 INTRODUCTION					*gitblame-introduction*
 
 The *gitblame* ( *gitblame.vim* ) provides a minimal command set for working with git;
-it's focus is on having a more pleasant interface for git blame and git grep.
+It started with commands for git blame and git grep, then added other commands as well.
 
 ------------------------------------------------------------------------------
 COMMAND     					*gitblame-command*
@@ -34,10 +34,10 @@ Gitls   - list all files under git from current directory downward; files are li
 
 Graph   - runs git log --graph  to produce a text graph of the commits, and puts the output into a named scratch buffer, 
           the scratch buffer has the name of the command.
-          While in the same buffer, press Enter or run Graph to open another buffer with the commit described by the current line in the graph. 
+          While in the same buffer, press Enter to open another buffer with the commit described by the current line in the graph. 
 
 GitLog  - runs git log --name-status --find-renames to produce a log of commits, and puts the output into a named scratch buffer, 
-          While in the same buffer, press Enter or run Graph to open another buffer with the commit nearest to the cursor position.
+          While in the same buffer, press Enter to open another buffer with the commit nearest to the cursor position.
 
 BranchLocal - list all local branch names in a buffer, if you press enter on a line in that buffer then it switches the local branch to that in the line.
 
