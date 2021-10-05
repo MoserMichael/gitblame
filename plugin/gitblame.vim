@@ -75,6 +75,11 @@ endfunction
 command! -nargs=1 -complete=command -bar -range Redir silent call s:Redir(<q-args>, <range>, <line1>, <line2>)
 
 function! s:RunGitGrep()
+    let s:git_top_dir = s:GitCheckGitDir()
+    if s:git_top_dir == ""
+       return
+    endif
+
    " --- No argument supplied. Get the identifier and file list from user ---
     let pattern = input("Grep for pattern: ", expand("<cword>"))
     if pattern == ""
@@ -156,6 +161,11 @@ endfunction
 
 function! s:RunGitBlame()
 
+    let s:git_top_dir = s:GitCheckGitDir()
+    if s:git_top_dir == ""
+       return
+    endif
+
     let s:file=expand('%:p')
     let s:lineNum=line('.')
 
@@ -199,6 +209,11 @@ command! -nargs=* GitLs call s:RunGitLs()
 endif
 
 function! s:RunGitLs()
+
+    let s:git_top_dir = s:GitCheckGitDir()
+    if s:git_top_dir == ""
+       return
+    endif
 
     let tmpfile = tempname()
     let grepcmd = "git ls-files  |  tee " . tmpfile
@@ -270,6 +285,11 @@ function! GitGraphGlobalShowCommit()
 endfunction
 
 function! s:RunGitGraph()
+
+    let s:git_top_dir = s:GitCheckGitDir()
+    if s:git_top_dir == ""
+       return
+    endif
 
     let s:file=expand('%:p')
 
@@ -366,6 +386,11 @@ endfunction
 
 function! s:RunGitDiff(...)
  
+    let s:git_top_dir = s:GitCheckGitDir()
+    if s:git_top_dir == ""
+       return
+    endif
+
     setlocal modifiable
     let s:GitDiffGlobalShowDiff_from_commit = ""
     let s:GitDiffGlobalShowDiff_to_commit = ""
@@ -431,6 +456,11 @@ endfunction
 
 
 function! s:RunGitCommand(command, actionFunction, title, newBuffer)
+        let s:git_top_dir = s:GitCheckGitDir()
+        if s:git_top_dir == ""
+            return
+        endif
+
         let s:tmpfile = tempname()
 
         let s:cmd =  a:command . " >" . s:tmpfile
@@ -611,6 +641,11 @@ function! s:RunGitStatusImp(replace)
        return
    endif
 
+   let s:git_top_dir = s:GitCheckGitDir()
+   if s:git_top_dir == ""
+       return
+   endif
+
    call chdir(s:git_top_dir)
 
    call s:RunGitCommand("git status", "GitStatusGlobalShowStatus", "git\\ status", a:replace)
@@ -626,6 +661,12 @@ command! -nargs=* Stage call s:RunGitStage()
 command! -nargs=* Unstage call s:RunGitUnStage()
 
 function! s:RunGitStageImp(cmdArg)
+
+    let s:git_top_dir = s:GitCheckGitDir()
+    if s:git_top_dir == ""
+       return
+    endif
+  
     let s:file=bufname()
     let s:cmdcheck=s:file[0:10]
 
