@@ -57,7 +57,8 @@ Unstage  - while in git status buffer: this command will unstage the file mentio
 
 Redir   - run any command and put the output in a scratch buffer.
           For example to list all remote branches: Redir !git branch -r
-          to make a commit with given commit message: Redir !git commit -m 'my commit message here'
+          To make a commit with given commit message: Redir !git commit -m 'my commit message here'
+          To push local commits to upstream branch: Redir !git push
         
 ShowGitBranchInStatusLine - show a status line that includes the current git branch in the current directory.
 
