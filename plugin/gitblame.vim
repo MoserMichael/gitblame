@@ -121,7 +121,8 @@ endfunction
 function!  s:OpenQuickFix()
 	let size = &lines
 	let size = size / 3
-	execute 'copen \| resize ' . size . '"'
+    let s:ccmdo = 'copen ' . size
+    execute s:ccmdo
 endfunction
 
 if !exists(":OpenQuickFix")
