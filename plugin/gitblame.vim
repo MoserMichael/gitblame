@@ -553,7 +553,6 @@ function! GitStatusGlobalShowStatus()
     
    let s:git_top_dir = s:GitCheckGitDir()
    if s:git_top_dir == ""
-       echo "current directory not in a git repository"
        return
    endif
    call chdir(s:git_top_dir)
@@ -609,7 +608,6 @@ function! s:RunGitStatusImp(replace)
 
    let s:git_top_dir = s:GitCheckGitDir()
    if s:git_top_dir == ""
-       echo "current directory not in a git repository"
        return
    endif
 
