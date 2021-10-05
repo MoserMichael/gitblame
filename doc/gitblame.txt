@@ -28,6 +28,7 @@ Blame   -  runs git blame on the file path  of the current buffer  and puts the 
            While in the blame buffer, press Enter or run Blame to open another buffer with the commit that changed the current line.
 
 GitGrep - enter a search string that is searched in the current git repository. 
+          The word under the cursor is suggested as the default search term.
           Assumes that the current working directory is part of a git repository
 
 Gitls   - list all files under git from current directory downward; files are listed in the quickfix buffer, so that you can enter it to open a buffer with the file.
