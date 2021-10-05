@@ -51,9 +51,12 @@ GitDiff <hash1> <hash2>  - run diff between two hashes, similar to previous invo
 
 GitStatus   - show the result of running git status in a buffer. Press Enter on a line of that window to open the file or directory mentioned, for tracked files a git diff is opened as vimdiff, the file is opened as is for untracked files.
 
+Stage    - while in git status buffer: this command will stage the file mentioned in the current line of the git status buffer.
+
+Unstage  - while in git status buffer: this command will unstage the file mentioned in the current line of the git status buffer.
+
 Redir   - run any command and put the output in a scratch buffer.
           For example to list all remote branches: Redir !git branch -r
-          to list the status: Redir !git status
           to make a commit with given commit message: Redir !git commit -m 'my commit message here'
         
 ShowGitBranchInStatusLine - show a status line that includes the current git branch in the current directory.
