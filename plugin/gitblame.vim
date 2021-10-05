@@ -636,7 +636,6 @@ function! s:RunGitStageImp(cmdArg)
                 " refresh the current window.
                 call s:RunGitStatusImp(0)
 
-                setlocal nomodifiable
 
                 let s:msg = "command: " . s:cmdgs . " succeeded"
                 echo s:msg
