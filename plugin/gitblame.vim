@@ -431,7 +431,10 @@ function! s:RunGitCommand(command, actionFunction, title, newBuffer)
         if a:newBuffer != 0
             execute "silent edit " . s:tmpfile
         else 
+            let old_swap = &swapfile
+            set noswapfile
             execute "silent 1,$d|0r " . s:tmpfile
+            let &swapfile = old_swap
         endif
         call delete(s:tmpfile)
 
