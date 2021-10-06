@@ -66,6 +66,11 @@ Redir   - run any command and put the output in a scratch buffer.
         
 ShowGitBranchInStatusLine - show a status line that includes the current git branch in the current directory.
 
+
+ACKNOWLEDGEMENT
+
+          This plugin uses Redir by Romain Lafourcade https://gist.github.com/romainl/eae0a260ab9c135390c30cd370c20cd7
+
 ==============================================================================
 CHANGELOG					*gitblame-changelog*
 
