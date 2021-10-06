@@ -161,10 +161,9 @@ function! GitBlameGlobalShowCommit()
 endfunction
 
 function! s:RunGitBlame()
-
     let s:git_top_dir = s:GitCheckGitDir()
     if s:git_top_dir == ""
-       return
+          return
     endif
 
     let s:file=expand('%:p')
@@ -179,30 +178,24 @@ function! s:RunGitBlame()
             call GitBlameGlobalShowCommit()
 
         else     
+                    
+             let s:cmd="git blame " . expand('%:p') 
+            
+             call s:RunGitCommand(s:cmd, "GitBlameGlobalShowCommit", s:cmd, 1)
 
-            let s:cmd="Redir !git blame " . expand('%:p') 
-            execute s:cmd
-            let s:linecmd="normal ". s:lineNum . "gg"
-            execute s:linecmd
+             let s:linecmd="normal ". s:lineNum . "gg"
+             execute s:linecmd
 
-            let s:curline = getline('.')
-            let s:pos = stridx(s:curline,')')
-            let s:pos = s:pos + 3
-
-            call cursor(s:lineNum, s:pos)
-
-            "zoom the window, to make it full screen
-            exec "normal \<C-W>\|\<C-W>_"
-
-            noremap <buffer> <silent> <CR>        :call GitBlameGlobalShowCommit()<CR>
-
-            setlocal nomodifiable
-
+             let s:curline = getline('.')
+             let s:pos = stridx(s:curline,')')
+             let s:pos = s:pos + 3
+             call cursor(s:lineNum, s:pos)
         endif
     else
         echo "Error: current buffer must be a file"
     endif        
 endfunction
+
 
 
 if !exists(":GitLs")
@@ -462,11 +455,20 @@ function! GitLogGlobalShowLog()
     endwhile
 endfunction
 
-
 function! s:RunGitCommand(command, actionFunction, title, newBuffer)
+
+        if winnr('$') > 1
+            for win in range(1, winnr('$'))
+                if getwinvar(win, 'gitcmdwnd')
+                    execute  win . 'windo close'
+                    "execute  win . "close!"
+                endif
+            endfor
+        endif
+
         let s:git_top_dir = s:GitCheckGitDir()
         if s:git_top_dir == ""
-            return
+          return
         endif
 
         let s:tmpfile = tempname()
@@ -477,20 +479,21 @@ function! s:RunGitCommand(command, actionFunction, title, newBuffer)
         if a:newBuffer != 0
             execute "silent edit " . s:tmpfile
         else 
-            let old_swap = &swapfile
-            set noswapfile
             execute "silent 1,$d|0r " . s:tmpfile
-            let &swapfile = old_swap
         endif
         call delete(s:tmpfile)
 
         let s:rename ="silent file " . a:title
         execute s:rename
        
-        setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile
+        "setlocal buftype=nofile nobuflisted noswapfile
+        setlocal buftype=nofile noswapfile
+
+        let w:gitcmdwnd = 1
 
         let s:cmd = "silent noremap <buffer> <silent> <CR>        :call " . a:actionFunction . "()<CR>"
         exec s:cmd
+        set nomodified
         setlocal nomodifiable
 endfunction   
 
