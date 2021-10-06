@@ -87,3 +87,5 @@ CHANGELOG					*gitblame-changelog*
      - fix GitStatus command.        
 0.7.1 2021-10-5
      - Add Stage and Unstage commands.
+0.7.2 2021-10-6
+    - Add StageAll UnstageAll commans
