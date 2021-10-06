@@ -55,6 +55,10 @@ Stage    - while in git status buffer: this command will stage the file mentione
 
 Unstage  - while in git status buffer: this command will unstage the file mentioned in the current line of the git status buffer.
 
+StageAll   -  while in git status buffer: this command will stage all files  (git add -u)
+
+UnstageAll -  while in git status buffer: this command will unstage all files  (git reset)
+
 Redir   - run any command and put the output in a scratch buffer.
           For example to list all remote branches: Redir !git branch -r
           To make a commit with given commit message: Redir !git commit -m 'my commit message here'
