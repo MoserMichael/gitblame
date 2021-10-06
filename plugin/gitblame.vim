@@ -307,15 +307,13 @@ function! s:RunGitGraph()
         call GitGraphGlobalShowCommit()
         
     else        
-       let s:cmd='Redir !git log --graph --full-history --all --pretty=format:' . "'" . '%h \%an: (%ci) \%s' .  "'"
-       silent! execute s:cmd 
+       let s:cmd='git log --graph --full-history --all --pretty=format:' . "'" . '%h \%an: (%ci) \%s' .  "'"
 
-       noremap <buffer> <silent> <CR>        :call GitGraphGlobalShowCommit()<CR>
-
-       setlocal nomodifiable
+       call s:RunGitCommand(s:cmd, "GitGraphGlobalShowCommit", "Git\ Graph", 1)
     endif
 
 endfunction
+
 
 
 function! s:Chomp(string)
