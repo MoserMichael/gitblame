@@ -650,9 +650,11 @@ function! s:RunGitStatusImp(replace)
    endif
 
    call chdir(s:git_top_dir)
+   let save_a_mark = getpos(".")
 
    call s:RunGitCommand("git status", "GitStatusGlobalShowStatus", "git\\ status", a:replace)
  
+   call setpos(".", save_a_mark)
    call chdir("-")
 endfunction
 
@@ -671,6 +673,7 @@ function! s:RunGitStageImp(cmdArg,addCurrent)
          return
     endif
 
+    call chdir(s:git_top_dir)
     let s:file=bufname()
     let s:cmdcheck=s:file[0:10]
 
@@ -684,6 +687,7 @@ function! s:RunGitStageImp(cmdArg,addCurrent)
                 let s:cmdgs = a:cmdArg . ' ' .s:fname
             else
                 echo "Current line doe not mention a file"
+                call chdir("-")
                 return
             endif
         else
@@ -709,6 +713,7 @@ function! s:RunGitStageImp(cmdArg,addCurrent)
     else
         echo "You must be in buffer creaed by GitStatus command"
     endif
+    call chdir("-")
 endfunction
 
 function! s:RunGitStage()
