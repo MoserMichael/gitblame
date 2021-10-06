@@ -399,11 +399,12 @@ endfunction
 
 
 
+
 function! s:RunGitDiff(...)
  
     let s:git_top_dir = s:GitCheckGitDir()
     if s:git_top_dir == ""
-       return
+         return
     endif
 
     setlocal modifiable
@@ -420,20 +421,12 @@ function! s:RunGitDiff(...)
     endif
 
     let s:cmd="git diff --name-only  " . s:GitDiffGlobalShowDiff_from_commit . " " . s:GitDiffGlobalShowDiff_to_commit
+    let s:title = "git\ diff\ " . s:GitDiffGlobalShowDiff_from_commit . "\ " . s:GitDiffGlobalShowDiff_to_commit
 
-    " --- run grep command ---
-    let s:output = systemlist(s:cmd)
-
-    belowright new 
-
-    setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile
-    call setline(1, s:output)
-
-    noremap <buffer> <silent> <CR>        :call GitDiffGlobalShowDiff()<CR>
-    setlocal nomodifiable
-
+    call s:RunGitCommand(s:cmd, "GitDiffGlobalShowDiff", s:title, 1)
 
 endfunction
+
 
 
 if !exists(":GitLog")
