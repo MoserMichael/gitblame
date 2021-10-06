@@ -88,9 +88,5 @@ CHANGELOG					*gitblame-changelog*
      - add BranchLocal and BranchRemote, fix status line.
 0.6 2021-10-2
      - add GitStatus command.        
-0.7 2021-10-2
-     - fix GitStatus command.        
-0.7.1 2021-10-5
-     - Add Stage and Unstage commands.
-0.7.2 2021-10-6
-    - Add StageAll UnstageAll commans
+0.8 2021-10-5
+     - Add Stage and Unstage commands. Various bug fixes.
