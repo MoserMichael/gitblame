@@ -480,6 +480,8 @@ function! s:RunGitCommand(command, actionFunction, title, newBuffer)
         let s:rename ="silent file " . a:title
         execute s:rename
        
+        setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile
+
         let s:cmd = "silent noremap <buffer> <silent> <CR>        :call " . a:actionFunction . "()<CR>"
         exec s:cmd
         setlocal nomodifiable
