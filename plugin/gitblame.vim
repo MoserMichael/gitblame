@@ -412,6 +412,16 @@ function! s:RunGitDiff(...)
     endif
 
     let s:cmd="git diff --name-only  " . s:GitDiffGlobalShowDiff_from_commit . " " . s:GitDiffGlobalShowDiff_to_commit
+    let res = system(s:cmd)
+    if res == ""
+        if s:GitDiffGlobalShowDiff_from_commit == "" && s:GitDiffGlobalShowDiff_to_commit == ""
+            echo "No changes between working tree and index"
+        else
+            echo "No changes between the two working trees"
+        endif
+        return
+    endif
+
     let s:title = "git\ diff\ " . s:GitDiffGlobalShowDiff_from_commit . "\ " . s:GitDiffGlobalShowDiff_to_commit
 
     call s:RunGitCommand(s:cmd, "GitDiffGlobalShowDiff", s:title, 1)

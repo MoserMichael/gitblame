@@ -43,3 +43,4 @@ After that you can view the help file of plugin via vim command:
 ```:help gitblame```
 
 Also see this script on [vim.org](https://www.vim.org/scripts/script.php?script_id=5975)
+
