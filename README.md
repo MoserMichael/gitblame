@@ -13,7 +13,17 @@ Click on the picture to view the presentation for this plugin (this presentation
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/bx7T2J0u2nI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-
+<div style="width: 560px; height: 315px; float: none; clear: both; margin: 2px auto;">
+  <embed
+    src="https://www.youtube.com/embed/bx7T2J0u2nI?autohide=1&autoplay=1"
+    wmode="transparent"
+    type="video/mp4"
+    width="100%" height="100%"
+    allow="autoplay; encrypted-media; picture-in-picture"
+    allowfullscreen
+    title="presenting the GitBlame Plugin"
+  >
+</div>
 # How to install
 
 To install this plugin, run the following commands.
