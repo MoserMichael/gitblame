@@ -43,3 +43,8 @@ After that you can view the help file of plugin via vim command:
 
 Also see this script on [vim.org](https://www.vim.org/scripts/script.php?script_id=5975)
 
+# Acknowledgement
+
+This plugin uses Redir by Romain Lafourcade https://gist.github.com/romainl/eae0a260ab9c135390c30cd370c20cd7
+
+
