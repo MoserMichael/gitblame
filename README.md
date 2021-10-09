@@ -10,7 +10,7 @@ This plugin is currently not supporting merges/rebases, as I am used to doing th
 This plugin is part of my [work environment](https://github.com/MoserMichael/myenv), this project publishes it separately as a neat plugin.
 
 
-Here is a [presentation of the plugin on youtube](https://www.youtube.com/watch?v=bx7T2J0u2nI)
+Here is a [presentation of the plugin on youtube](https://www.youtube.com/watch?v=7ug8cWKAuO8)
 
 # How to install
 
