@@ -10,7 +10,8 @@ This plugin is currently not supporting merges/rebases, as I am used to doing th
 This plugin is part of my [work environment](https://github.com/MoserMichael/myenv), this project publishes it separately as a neat plugin.
 
 Click on the picture to view the presentation for this plugin (this presentation is on an older version of the plugin)
-[![click to view presentation](https://img.youtube.com/vi/wuXpTfWuv_A/0.jpg)](https://youtu.be/wuXpTfWuv_A)
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/bx7T2J0u2nI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 # How to install
