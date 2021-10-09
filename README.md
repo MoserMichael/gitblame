@@ -10,7 +10,7 @@ This plugin is currently not supporting merges/rebases, as I am used to doing th
 This plugin is part of my [work environment](https://github.com/MoserMichael/myenv), this project publishes it separately as a neat plugin.
 
 Click on the picture to view the presentation for this plugin (this presentation is on an older version of the plugin)
-[![click to view presentation](https://img.youtube.com/vi/bx7T2J0u2nI/0.jpg)](https://www.youtube.com/watch?v=bx7T2J0u2nI)
+[![click to view presentation](https://img.youtube.com/vi/bhttps://youtu.be/wuXpTfWuv_A/0.jpg)]()https://youtu.be/wuXpTfWuv_A)
 
 
 # How to install
