@@ -90,3 +90,5 @@ CHANGELOG					*gitblame-changelog*
      - add GitStatus command.        
 0.8 2021-10-5
      - Add Stage and Unstage commands. Various bug fixes.
+0.8.2 2021-10-10
+     - fix bug. always use new, not edit.
