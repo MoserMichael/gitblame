@@ -188,7 +188,7 @@ function! s:RunGitBlame()
                     
              let s:cmd="git blame " . expand('%:p') 
             
-             call s:RunGitCommand(s:cmd, "GitBlameGlobalShowCommit", s:cmd, 1)
+             call s:RunGitCommand(s:cmd, "", "GitBlameGlobalShowCommit", s:cmd, 1)
 
              let s:linecmd="normal ". s:lineNum . "gg"
              execute s:linecmd
@@ -316,7 +316,7 @@ function! s:RunGitGraph()
     else        
        let s:cmd='git log --graph --full-history --all --pretty=format:' . "'" . '%h \%an: (%ci) \%s' .  "'"
 
-       call s:RunGitCommand(s:cmd, "GitGraphGlobalShowCommit", "Git\ Graph", 1)
+       call s:RunGitCommand(s:cmd, "", "GitGraphGlobalShowCommit", "Git\ Graph", 1)
     endif
 
 endfunction
@@ -356,6 +356,8 @@ function! GitDiffGlobalShowDiff()
     endif
  
     call chdir(s:git_top_dir)
+
+    let s:line = strpart(s:line, 0, strridx(s:line,":"))
 
     file "git show :" . s:line
 
@@ -402,8 +404,6 @@ endfunction
 
 
 
-
-
 function! s:RunGitDiff(...)
  
     let s:git_top_dir = s:GitCheckGitDir()
@@ -424,9 +424,12 @@ function! s:RunGitDiff(...)
       endif
     endif
 
-    let s:cmd="git diff --name-only  " . s:GitDiffGlobalShowDiff_from_commit . " " . s:GitDiffGlobalShowDiff_to_commit
-    let res = system(s:cmd)
-    if res == ""
+    "let s:cmd=  "git diff --name-only " . s:GitDiffGlobalShowDiff_from_commit . " " . s:GitDiffGlobalShowDiff_to_commit
+    "let s:cmd=  "git diff --name-status " . s:GitDiffGlobalShowDiff_from_commit . " " . s:GitDiffGlobalShowDiff_to_commit . " | awk '{ print $2 \": \" $1 }'" 
+    let s:cmd=  "git diff --name-status " . s:GitDiffGlobalShowDiff_from_commit . " " . s:GitDiffGlobalShowDiff_to_commit 
+    
+    let s:res = systemlist(s:cmd)
+    if len(s:res) == 0
         if s:GitDiffGlobalShowDiff_from_commit == "" && s:GitDiffGlobalShowDiff_to_commit == ""
             echo "No changes between working tree and index"
         else
@@ -435,9 +438,21 @@ function! s:RunGitDiff(...)
         return
     endif
 
+    let s:status_names = { 'A' : 'Added', 'C' : 'Copied', 'D' : 'Deleted', 'M' : 'Modified', 'R' : 'Renamed', 'T' : 'Changed', 'U' : 'Unmerged', 'X' : 'Unknown', 'B' : '[pairing Broken]', '*' : '[all or one]' }
+    let s:report = ""
+    for s:line in s:res
+        let s:tokens = split(s:line,"\t")
+        let s:status = ""
+
+        for s:item in split(s:tokens[0], '\zs')
+            let s:status = s:status . s:status_names[ s:item ] . ' '
+        endfor
+        let s:report = s:report . s:tokens[1] . ": " . s:status . "  " . s:tokens[0] . "\n"
+    endfor
+
     let s:title = "git\ diff\ " . s:GitDiffGlobalShowDiff_from_commit . "\ " . s:GitDiffGlobalShowDiff_to_commit
 
-    call s:RunGitCommand(s:cmd, "GitDiffGlobalShowDiff", s:title, 1)
+    call s:RunGitCommand("", s:report, "GitDiffGlobalShowDiff", s:title, 1) ", "%f:%m")
 
 endfunction
 
@@ -476,8 +491,7 @@ function! GitLogGlobalShowLog()
     endwhile
 endfunction
 
-
-function! s:RunGitCommand(command, actionFunction, title, newBuffer)
+function! s:RunGitCommand(command, msg, actionFunction, title, newBuffer)
 
         if winnr('$') > 1
             for win in range(1, winnr('$'))
@@ -495,13 +509,23 @@ function! s:RunGitCommand(command, actionFunction, title, newBuffer)
 
         let s:tmpfile = tempname()
 
-        let s:cmd =  a:command . " >" . s:tmpfile
-        call system(s:cmd)
+        if a:msg == ""
+            let s:cmd =  a:command . " >" . s:tmpfile
+            call system(s:cmd)
+        else 
+            call writefile( split(a:msg,"\n"), s:tmpfile, "s")
+        endif
 
         if a:newBuffer != 0
             new
         endif
+
+       "let old_efm = &efm
+       "set efm=errfmt
+       "execute "silent! cgetfile " . s:tmpfile
         execute "silent 1,$d|0r " . s:tmpfile
+       "let &efm = old_efm
+
         call delete(s:tmpfile)
 
         let s:rename ="silent file " . a:title
@@ -520,7 +544,7 @@ endfunction
 
 
 function! s:RunGitLog()
-        call s:RunGitCommand("git log --decorate --name-status --find-renames", "GitLogGlobalShowLog", "git\\ log", 1)
+        call s:RunGitCommand("git log --decorate --name-status --find-renames", "", "GitLogGlobalShowLog", "git\\ log", 1)
 endfunction
 
 
@@ -569,7 +593,7 @@ command! -nargs=* BranchRemote call s:RunBranchRemote()
 endif
 
 function! s:RunBranchRemote() 
-        call s:RunGitCommand("git branch --remote", "GitBranchGlobalChooseBranch", "remote\\ branches", 1)
+        call s:RunGitCommand("git branch --remote", "", "GitBranchGlobalChooseBranch", "remote\\ branches", 1)
 endfunction
 
 if !exists("BranchLocal")
@@ -577,7 +601,7 @@ command! -nargs=* BranchLocal call s:RunBranchLocal()
 endif
 
 function! s:RunBranchLocal()
-        call s:RunGitCommand("git branch | cut -c 2-", "GitBranchGlobalChooseBranch", "local\\ branches", 1)
+        call s:RunGitCommand("git branch | cut -c 2-", "", "GitBranchGlobalChooseBranch", "local\\ branches", 1)
 endfunction
 
 
@@ -683,7 +707,7 @@ function! s:RunGitStatusImp(replace)
    call chdir(s:git_top_dir)
    let save_a_mark = getpos(".")
 
-   call s:RunGitCommand("git status", "GitStatusGlobalShowStatus", "git\\ status", a:replace)
+   call s:RunGitCommand("git status", "", "GitStatusGlobalShowStatus", "git\\ status", a:replace)
  
    call setpos(".", save_a_mark)
    call chdir("-")
