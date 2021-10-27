@@ -342,7 +342,7 @@ if !exists(":GitDiff")
 command! -nargs=* GitDiff call s:RunGitDiff(<f-args>)
 endif
 
-if !exists(":GitDiff")
+if !exists(":GitDiffNoSpace")
 command! -nargs=* GitDiffNoSpace call s:RunGitDiffNoSpace(<f-args>)
 endif
 
