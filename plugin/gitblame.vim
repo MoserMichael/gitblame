@@ -342,6 +342,11 @@ if !exists(":GitDiff")
 command! -nargs=* GitDiff call s:RunGitDiff(<f-args>)
 endif
 
+if !exists(":GitDiff")
+command! -nargs=* GitDiffNoSpace call s:RunGitDiffNoSpace(<f-args>)
+endif
+
+
 " has to be global function. strange.
 function! GitDiffGlobalShowDiff()
     let s:line = getline(".")
@@ -388,8 +393,19 @@ function! GitDiffGlobalShowDiff()
     let s:show_cmd = "git show  " . s:GitDiffGlobalShowDiff_to_commit . ":" . s:line
     let s:cmd= s:show_cmd . " >" . s:tmpfile
 
+"    if s:GitDiffGlobalShowDiffMode != ""
+"        let old_diffopt = &diffopt
+"        execute "normal! set diffopt=iwhite,iblank,iwhiteall"
+"    endif
+
     call system(s:cmd)
-    execute "silent vertical diffs " . s:tmpfile
+
+    if s:GitDiffGlobalShowDiffMode != ""
+        execute "set diffopt=iwhite,iblank,iwhiteall | silent vertical diffs " . s:tmpfile
+    else 
+        execute "set diffopt=internal,filler,closeoff | silent vertical diffs " . s:tmpfile
+    endif
+
     call delete(s:tmpfile)
 
    
@@ -398,14 +414,29 @@ function! GitDiffGlobalShowDiff()
     
     setlocal nomodifiable
 
+"    if s:GitDiffGlobalShowDiffMode != ""
+"        let &diffopt = old_diffopt 
+"    endif
+"
     call chdir("-")
 
 endfunction
 
-
+function! s:RunGitDiffNoSpace(...)
+    call s:RunGitDiffImpl("--ignore-all-space", a:000)
+endfunction
+ 
 
 function! s:RunGitDiff(...)
+    call s:RunGitDiffImpl("", a:000)
+endfunction
+
+
+function! s:RunGitDiffImpl(mode, ...)
  
+"    echo "mode: " . a:mode " f-args: " . type(a:1) . " : " . len(a:1) . " :: " . join(a:1,';')
+"    return
+
     let s:git_top_dir = s:GitCheckGitDir()
     if s:git_top_dir == ""
          return
@@ -415,18 +446,20 @@ function! s:RunGitDiff(...)
     let s:GitDiffGlobalShowDiff_from_commit = ""
     let s:GitDiffGlobalShowDiff_to_commit = ""
     let s:to_commit = ""
-    if len(a:000) == 2
-        let s:GitDiffGlobalShowDiff_from_commit = a:1
-        let s:GitDiffGlobalShowDiff_to_commit = a:2
+    if len(a:1) == 2
+        let s:GitDiffGlobalShowDiff_from_commit = a:1[0]
+        let s:GitDiffGlobalShowDiff_to_commit = a:1[1]
     else
-      if len(a:000) == 1
-        let s:GitDiffGlobalShowDiff_to_commit = a:1
+      if len(a:1) == 1
+        let s:GitDiffGlobalShowDiff_to_commit = a:1[0]
       endif
     endif
 
-    "let s:cmd=  "git diff --name-only " . s:GitDiffGlobalShowDiff_from_commit . " " . s:GitDiffGlobalShowDiff_to_commit
-    "let s:cmd=  "git diff --name-status " . s:GitDiffGlobalShowDiff_from_commit . " " . s:GitDiffGlobalShowDiff_to_commit . " | awk '{ print $2 \": \" $1 }'" 
-    let s:cmd=  "git diff --name-status " . s:GitDiffGlobalShowDiff_from_commit . " " . s:GitDiffGlobalShowDiff_to_commit 
+    let s:GitDiffGlobalShowDiffMode = a:mode
+
+   "let s:cmd=  "git diff --name-only "  . s:GitDiffGlobalShowDiff_from_commit . " " . s:GitDiffGlobalShowDiff_to_commit
+   "let s:cmd=  "git diff --name-status " . s:GitDiffGlobalShowDiff_from_commit . " " . s:GitDiffGlobalShowDiff_to_commit . " | awk '{ print $2 \": \" $1 }'" 
+    let s:cmd=  "git diff --name-status " . a:mode . " " . s:GitDiffGlobalShowDiff_from_commit . " " . s:GitDiffGlobalShowDiff_to_commit 
     
     let s:res = systemlist(s:cmd)
     if len(s:res) == 0
@@ -450,11 +483,13 @@ function! s:RunGitDiff(...)
         let s:report = s:report . s:tokens[1] . ": " . s:status . "  " . s:tokens[0] . "\n"
     endfor
 
-    let s:title = "git\ diff\ " . s:GitDiffGlobalShowDiff_from_commit . "\ " . s:GitDiffGlobalShowDiff_to_commit
+    let s:title = "git\ diff\ " . a:mode . " " . s:GitDiffGlobalShowDiff_from_commit . "\ " . s:GitDiffGlobalShowDiff_to_commit
 
     call s:RunGitCommand("", s:report, "GitDiffGlobalShowDiff", s:title, 1) ", "%f:%m")
 
 endfunction
+
+
 
 
 
@@ -783,8 +818,9 @@ function! s:RunGitStageAll()
     call s:RunGitStageImp('git add -u', 0)
 endfunction
 
+
 function! s:RunGitUnStageAll()
-    call s:RunGitStageImp('git reset', 0)
+    call s:RunGitStageImp('git reset', 0)   
 endfunction
 
 

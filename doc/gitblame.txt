@@ -47,6 +47,11 @@ BranchRemote - list all remote branch names in a buffer, if you press enter on a
 GitDiff - run git diff --name-only to get the list of the files that differed from the top of the branch and open the list in another buffer.
           while in the same buffer, press Enter to open another buffer in vimdiff mode that shows the difference.
 
+GitDiffNoSpace - run git diff --name-only to get the list of the files that differed from the top of the branch and open the list in another buffer.
+          while in the same buffer, press Enter to open another buffer in vimdiff mode that shows the difference, while ignoring white space changes.
+
+
+
 GitDiff <hash1> <hash2>  - run diff between two hashes, similar to previous invocation.
 
 GitStatus   - show the result of running git status in a buffer. Press Enter on a line of that window to open the file or directory mentioned, for tracked files a git diff is opened as vimdiff, the file is opened as is for untracked files.
