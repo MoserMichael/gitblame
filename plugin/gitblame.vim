@@ -1,4 +1,9 @@
-" Vim global plugin for git blame and git grep
+if exists("gitblame_plugin_loaded")
+    finish
+endif
+let gitblame_plugin_loaded = 1
+
+"" Vim global plugin for git blame and git grep
 " defines the following global commands
 "
 "   Blame - runs git blame on the file of the current window; The result is displayed in a scratch buffer; cursor is set to the same position as the original buffer.
@@ -583,7 +588,7 @@ endfunction
 
 
 function! s:RunGitLog()
-        call s:RunGitCommand("git log --decorate --name-status --find-renames", "", "GitLogGlobalShowLog", "git\\ log", 1)
+        call s:RunGitCommand("git log --tags --decorate --name-status --find-renames", "", "GitLogGlobalShowLog", "git\\ log", 1)
 endfunction
 
 
