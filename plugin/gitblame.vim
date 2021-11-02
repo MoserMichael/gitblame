@@ -588,7 +588,7 @@ endfunction
 
 
 function! s:RunGitLog()
-        call s:RunGitCommand("git log --tags --decorate --name-status --find-renames", "", "GitLogGlobalShowLog", "git\\ log", 1)
+        call s:RunGitCommand("git log  --decorate --name-status --find-renames", "", "GitLogGlobalShowLog", "git\\ log", 1)
 endfunction
 
 
