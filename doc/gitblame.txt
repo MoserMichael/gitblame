@@ -99,3 +99,5 @@ CHANGELOG					*gitblame-changelog*
      - fix bug. always use new, not edit.
 0.8.3 2021-27-10
      - add GitDiffNoSpace, show status with GitDiff
+0.8.5 2021-07-11    
+     - fix buffer names win git diff.
