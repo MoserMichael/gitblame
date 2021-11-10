@@ -71,6 +71,8 @@ Redir   - run any command and put the output in a scratch buffer.
         
 ShowGitBranchInStatusLine - show a status line that includes the current git branch in the current directory.
 
+CdTopDir - if in a git repository; change current directory to the top directory of the repository
+ 
 
 ACKNOWLEDGEMENT
 
