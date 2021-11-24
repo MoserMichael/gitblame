@@ -68,6 +68,7 @@ Redir   - run any command and put the output in a scratch buffer.
           For example to list all remote branches: Redir !git branch -r
           To make a commit with given commit message: Redir !git commit -m 'my commit message here'
           To push local commits to upstream branch: Redir !git push
+          list all files not under git: Redir !git ls-files --other
         
 ShowGitBranchInStatusLine - show a status line that includes the current git branch in the current directory.
 
