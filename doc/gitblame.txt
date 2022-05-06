@@ -40,6 +40,8 @@ Graph   - runs git log --graph  to produce a text graph of the commits, and puts
 GitLog  - runs git log --name-status --find-renames to produce a log of commits, and puts the output into a named scratch buffer, 
           While in the same buffer, press Enter to open another buffer with the commit nearest to the cursor position.
 
+GitLogF <f-args> - gets an additional file name argument, show log only for changes on this file.
+
 BranchLocal - list all local branch names in a buffer, if you press enter on a line in that buffer then it switches the local branch to that in the line.
 
 BranchRemote - list all remote branch names in a buffer, if you press enter on a line in that buffer, then it checks out that branch and switches to it.

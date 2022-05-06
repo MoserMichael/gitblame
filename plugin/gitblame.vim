@@ -507,8 +507,14 @@ endfunction
 
 
 if !exists(":GitLog")
-command! -nargs=* GitLog call s:RunGitLog()
+command! -nargs=* GitLog call s:RunGitLog("")
 endif
+
+if !exists(":GitLogF")
+command! -nargs=* -complete=file GitLogF call s:RunGitLog(<f-args>)
+endif
+
+
 
 function! GitLogGlobalShowLog()
 
@@ -590,11 +596,15 @@ function! s:RunGitCommand(command, msg, actionFunction, title, newBuffer)
         setlocal nomodifiable
 endfunction   
 
+function! s:RunGitLog(fileName)
+        let s:cmd = "git log  --decorate --name-status --find-renames"
 
-function! s:RunGitLog()
-        call s:RunGitCommand("git log  --decorate --name-status --find-renames", "", "GitLogGlobalShowLog", "git\\ log", 1)
+        if a:fileName != ""
+            let s:cmd = s:cmd . " " . a:fileName
+        endif
+
+        call s:RunGitCommand(s:cmd, "", "GitLogGlobalShowLog", "git\\ log", 1) ", "%f")
 endfunction
-
 
 function! GitBranchGlobalChooseBranch()
 
