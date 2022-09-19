@@ -47,4 +47,9 @@ Also see this script on [vim.org](https://www.vim.org/scripts/script.php?script_
 
 This plugin uses Redir by Romain Lafourcade https://gist.github.com/romainl/eae0a260ab9c135390c30cd370c20cd7
 
+# Bugs
+
+Showing the current git branch in the status line doesn't always work.
+Sometimes the command to show the git branch is running too slow, in this case you will see nasty symbols while moving the cursor around the screen.
+I saw this happening on Linux running under WSL, on Windows (didn't see it on Linux without WSL or on the Mac)
 
